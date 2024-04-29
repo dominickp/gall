@@ -65,11 +65,8 @@
     </style>
     <script>
       function bootstrapSelecting() {
-        // Get the main element
         var main = document.querySelector("main");
-        // Add the is-selecting class to the main element
         main.classList.add("is-selecting");
-
         var filterOptions = document.querySelector(
           "#filter-options .visible-on-selecting"
         );
@@ -77,16 +74,13 @@
       }
 
       function resetSelecting() {
-        // Get the main element
         var main = document.querySelector("main");
         // Remove the is-selecting class from the main element
         main.classList.remove("is-selecting");
 
         // Select all images
         var images = document.querySelectorAll("main figure img");
-
         for (const image of images) {
-          // Get the parent figure element
           var figure = image.parentElement;
           // Remove the toggling/hidden classes
           figure.classList.remove("toggling");
@@ -102,7 +96,6 @@
       function filterSelection() {
         // Select all images
         var images = document.querySelectorAll("main figure img");
-
         for (const image of images) {
           // If the image is not toggling, add the hidden class to it
           if (!image.parentElement.classList.contains("toggling")) {
@@ -112,9 +105,7 @@
       }
 
       function randomizeImageOrder() {
-        // Get the main element
         var main = document.querySelector("main");
-        // Get all the figures
         var figures = document.querySelectorAll("main figure");
         // Create an array to store the figures
         var figuresArray = Array.from(figures);
@@ -141,13 +132,8 @@
       function toggleImage(event) {
         // Set the is-selecting class on the main element
         bootstrapSelecting();
-
-        // Get the clicked image
         var image = event.target;
-
-        // Get the parent figure element
         var figure = image.parentElement;
-
         // Check if the figure element has the toggling class
         if (figure.classList.contains("toggling")) {
           // Remove the toggling class
@@ -161,7 +147,6 @@
       document.addEventListener("DOMContentLoaded", (event) => {
         // Select all images
         var images = document.querySelectorAll("main figure img");
-
         // Loop through each image
         for (const image of images) {
           // Add click event listener to each image
