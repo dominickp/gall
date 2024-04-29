@@ -3,9 +3,9 @@
 ## UI
 
 ```sh
-gal ./some-dir  # Generate default gallery in directory
-gal ./some-dir -f # launch with firefox
-gal ./some-dir -b # launch default browser
+gall ./some-dir  	# Generate default gallery in directory
+gall ./some-dir -f 	# launch with firefox
+gall ./some-dir -b 	# launch default browser
 ```
 
 ## Firefox
