@@ -1,4 +1,7 @@
 # go-masonry-gallery
+
+This repo contains a CLI program that scans a directory for images and generates a simple HTML gallery using the experimental CSS [Masonry layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout). The gallery file generated is left in the directory, so in the future, you can just open it in a browser.
+
  
 ## UI
 
@@ -9,7 +12,7 @@ gall ./some-dir -b 	# launch default browser
 ```
 
 ## Firefox
-Set `layout.css.grid-template-masonry-value.enabled` to true in `about:config`
+At the time of writing this, to use the Masonry layout in Firefox, navigate to [about:config](about:config) and set `layout.css.grid-template-masonry-value.enabled` to true.
 
 ## Notes
 Example images generates with https://unsample.net/
