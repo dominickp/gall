@@ -59,7 +59,6 @@ func fileIsImage(file fs.DirEntry) bool {
 		".bmp",         // BMP
 		".ico", ".cur", // ICO
 		".tiff", ".tif", // TIFF
-
 	}
 	for _, fileType := range imageFileTypes {
 		if strings.HasSuffix(file.Name(), fileType) {
@@ -82,5 +81,6 @@ func getImagesInDirectory(dir string) []fs.DirEntry {
 		}
 	}
 	log.Printf("Found %d images in the directory", len(images))
+	log.Printf("%d non-images were excluded from the gallery", len(files)-len(images))
 	return images
 }

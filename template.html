@@ -54,7 +54,8 @@
         top: 34px;
         z-index: 999;
         margin: 20px;
-        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
         background-color: rgba(0, 0, 0, 0.6);
         color: white;
         padding: 2px 10px;
@@ -176,11 +177,14 @@
   <body>
     <div id="filter-options">
       <div class="visible-on-selecting invisible">
-        <a class="button" onclick="resetSelecting()">🔄</a>
-        <a class="button" onclick="filterSelection()">✅</a>
+        <a title="Reset gallery" class="button" onclick="resetSelecting()">🔄</a
+        ><a title="Filter gallery" class="button" onclick="filterSelection()"
+          >✅</a
+        >
       </div>
-      <a class="button" onclick="randomizeImageOrder()">🔀</a>
-      <a
+      <a title="Randomize images" class="button" onclick="randomizeImageOrder()"
+        >🔀</a
+      ><a
         class="button"
         onmouseenter="showGalleryInfo()"
         onmouseleave="hideGalleryInfo()"
