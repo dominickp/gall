@@ -18,6 +18,11 @@ import (
 	"github.com/tdewolff/minify/v2/js"
 )
 
+//go:embed template.html
+var template string
+
+const galleryFileName = "gal.html"
+
 type Options struct {
 	LaunchDefaultBrowser bool `short:"b" long:"browser" description:"Launch the default browser after creating the gallery"`
 	LaunchFirefox        bool `short:"f" long:"firefox" description:"Launch Firefox after creating the gallery"`
@@ -25,7 +30,7 @@ type Options struct {
 
 func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEntry) string {
 	// Create a new file in the directory
-	galleryFileName := filepath.Join(directoryAbsolutePath, "gal.html")
+	galleryFileName := filepath.Join(directoryAbsolutePath, galleryFileName)
 	file, err := os.Create(galleryFileName)
 	if err != nil {
 		fmt.Println(err)
@@ -33,9 +38,9 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEn
 	}
 	defer file.Close()
 
+	// Generate the content for the gallery
 	galleryTitle := filepath.Base(directoryAbsolutePath)
 	galleryInfo := fmt.Sprintf("Created on %s - %d images", time.Now().Format("January 2, 2006 at 3:04 PM"), len(images))
-
 	galleryContents := ""
 	for _, image := range images {
 		galleryContents += fmt.Sprintf(`
@@ -58,19 +63,15 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEn
 	if err != nil {
 		panic(err)
 	}
-
+	// Write the HTML to the file
 	file.WriteString(template)
-
 	log.Printf("Gallery created: %s", galleryFileName)
-
 	return galleryFileName
 }
 
-//go:embed template.html
-var template string
-
 func main() {
 
+	// Parse command line arguments
 	var opts Options
 	_, err := flags.Parse(&opts)
 	if err != nil {
@@ -88,7 +89,7 @@ func main() {
 	dir := args[0]
 	log.Printf("Directory to be scanned: %s", dir)
 
-	// Check if the directory exists
+	// Ensure the directory exists
 	dirInfo, err := os.Stat(dir)
 	if err != nil {
 		log.Fatalf("Error reading directory: %s", err)
@@ -98,20 +99,19 @@ func main() {
 		log.Fatalf("'%s' is not a directory", dir)
 		return
 	}
-
 	dir, err = filepath.Abs(dir)
 	if err != nil {
 		log.Fatalf("Error resolving absolute path: %s", err)
 		return
 	}
 
-	// Gather images in the target directory
+	// Gather browser-supported images in the target directory
 	images := getImagesInDirectory(dir)
 
 	// Create a new HTML file
 	galleryFileName := createHTMLGallery(template, dir, images)
 
-	// Open the gallery in the browser
+	// Optionally, open the gallery in the browser
 	if opts.LaunchDefaultBrowser || opts.LaunchFirefox {
 		var browser string
 		if opts.LaunchFirefox {
