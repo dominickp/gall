@@ -49,9 +49,12 @@ The file [template.html](./template.html) contains the unminified HTML template 
 
 
 ## Context menu (windows)
-Nilesoft shell https://nilesoft.org/docs/get-started
+To make this app a bit easier to use on my Windows 11 machine, I added it as an option to my context menu when right clicking a folder or the background pane of an open folder. This is what it looks like:
 
-Add to shell.nss
+<img src="./docs/context-menu.jpg">
+
+This uses a tool called [Nilesoft Shell](https://nilesoft.org/). Once installed, simply add the following to your [shell.nss](https://nilesoft.org/docs/get-started):
+
 ```
 menu(type='back|dir' mode="multiple"  title='dominickp/gall' image=\uE1F4)
 {
@@ -59,3 +62,4 @@ menu(type='back|dir' mode="multiple"  title='dominickp/gall' image=\uE1F4)
 	item(title = 'Generate Gallery (launch Firefox)' cmd='gall' arg='. -f')
 }
 ```
+
