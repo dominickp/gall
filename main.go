@@ -12,6 +12,7 @@ import (
 	"time"
 
 	flags "github.com/jessevdk/go-flags"
+	"github.com/spf13/afero"
 	minify "github.com/tdewolff/minify/v2"
 	"github.com/tdewolff/minify/v2/css"
 	"github.com/tdewolff/minify/v2/html"
@@ -28,7 +29,7 @@ type Options struct {
 	LaunchFirefox        bool `short:"f" long:"firefox" description:"Launch Firefox after creating the gallery"`
 }
 
-func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEntry) string {
+func createHTMLGallery(template, directoryAbsolutePath string, images []fs.FileInfo) string {
 	// Create a new file in the directory
 	galleryFileName := filepath.Join(directoryAbsolutePath, galleryFileName)
 	file, err := os.Create(galleryFileName)
@@ -106,7 +107,7 @@ func main() {
 	}
 
 	// Gather browser-supported images in the target directory
-	images := getImagesInDirectory(dir)
+	images := getImagesInDirectory(afero.NewOsFs(), dir)
 
 	// Create a new HTML file
 	galleryFileName := createHTMLGallery(template, dir, images)

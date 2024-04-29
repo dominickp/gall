@@ -3,10 +3,11 @@ package main
 import (
 	"io/fs"
 	"log"
-	"os"
 	"os/exec"
 	"runtime"
 	"strings"
+
+	"github.com/spf13/afero"
 )
 
 func openBrowser(url string, browser string) error {
@@ -47,7 +48,7 @@ func openBrowser(url string, browser string) error {
 }
 
 // fileIsImage checks if a file is a browser-compatible image based on its extension
-func fileIsImage(file fs.DirEntry) bool {
+func fileIsImage(file fs.FileInfo) bool {
 	// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
 	imageFileTypes := []string{
 		".apng",                                    // APNG
@@ -70,13 +71,13 @@ func fileIsImage(file fs.DirEntry) bool {
 }
 
 // getImagesInDirectory reads the files in a directory and returns a list of images
-func getImagesInDirectory(dir string) []fs.DirEntry {
-	files, err := os.ReadDir(dir)
+func getImagesInDirectory(afs afero.Fs, dir string) []fs.FileInfo {
+	files, err := afero.ReadDir(afs, dir)
 	if err != nil {
 		log.Fatalf("Error reading directory: %s", err)
 		return nil
 	}
-	images := []fs.DirEntry{}
+	images := []fs.FileInfo{}
 	for _, file := range files {
 		if fileIsImage(file) {
 			images = append(images, file)
