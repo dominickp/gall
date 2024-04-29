@@ -48,7 +48,7 @@ The file [template.html](./template.html) contains the unminified HTML template 
 |`<!-- GALLERY_INFO-->`|Gallery info|
 
 
-## Context menu (windows)
+## Context menu (Windows)
 To make this app a bit easier to use on my Windows 11 machine, I added it as an option to my context menu when right clicking a folder or the background pane of an open folder. This is what it looks like:
 
 <img src="./docs/context-menu.jpg">
