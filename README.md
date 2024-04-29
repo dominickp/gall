@@ -4,9 +4,8 @@
 
 ```sh
 gal ./some-dir  # Generate default gallery in directory
-gal ./some-dir -ff # launch with firefox
+gal ./some-dir -f # launch with firefox
 gal ./some-dir -b # launch default browser
-gal ./some-dir -r # randomize images
 ```
 
 ## Firefox
@@ -21,3 +20,4 @@ Example images generates with https://unsample.net/
 |---|---|
 |`<!-- GALLERY_CONTENTS -->`|Gallery images|
 |`<!-- GALLERY_TITLE -->`|Gallery title|
+|`<!-- GALLERY_INFO-->`|Gallery info|

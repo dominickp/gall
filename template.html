@@ -23,7 +23,7 @@
         display: block;
         cursor: pointer;
       }
-      main.is-selecting figure:not(.toggling) img{
+      main.is-selecting figure:not(.toggling) img {
         opacity: 0.5;
       }
       .hidden {
@@ -45,17 +45,33 @@
       }
       a.button {
         cursor: pointer;
+        box-sizing: border-box;
+      }
+      #gallery-info {
+        position: fixed;
+        display: inline;
+        right: 0;
+        top: 34px;
+        z-index: 999;
+        margin: 20px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 9px;
+        font-size: 14px;
       }
     </style>
     <script>
-
       function bootstrapSelecting() {
         // Get the main element
         var main = document.querySelector("main");
         // Add the is-selecting class to the main element
         main.classList.add("is-selecting");
 
-        var filterOptions = document.querySelector("#filter-options .visible-on-selecting");
+        var filterOptions = document.querySelector(
+          "#filter-options .visible-on-selecting"
+        );
         filterOptions.classList.remove("invisible");
       }
 
@@ -76,7 +92,9 @@
           figure.classList.remove("hidden");
         }
 
-        var filterOptions = document.querySelector("#filter-options .visible-on-selecting");
+        var filterOptions = document.querySelector(
+          "#filter-options .visible-on-selecting"
+        );
         filterOptions.classList.add("invisible");
       }
 
@@ -109,11 +127,20 @@
         }
       }
 
-      function toggleImage(event) {
+      function showGalleryInfo() {
+        var galleryInfo = document.querySelector("#gallery-info");
+        galleryInfo.classList.remove("invisible");
+      }
 
+      function hideGalleryInfo() {
+        var galleryInfo = document.querySelector("#gallery-info");
+        galleryInfo.classList.add("invisible");
+      }
+
+      function toggleImage(event) {
         // Set the is-selecting class on the main element
         bootstrapSelecting();
-        
+
         // Get the clicked image
         var image = event.target;
 
@@ -148,15 +175,19 @@
   </head>
   <body>
     <div id="filter-options">
-        <div class="visible-on-selecting invisible">
-          <a class="button" onclick="resetSelecting()">🔄</a>
-          <a class="button" onclick="filterSelection()">✅</a>
-        </div>
-        <a class="button" onclick="randomizeImageOrder()">🔀</a>
+      <div class="visible-on-selecting invisible">
+        <a class="button" onclick="resetSelecting()">🔄</a>
+        <a class="button" onclick="filterSelection()">✅</a>
       </div>
-    <main class="grid">
-      
-      <!-- GALLERY_CONTENTS -->
-    </main>
+      <a class="button" onclick="randomizeImageOrder()">🔀</a>
+      <a
+        class="button"
+        onmouseenter="showGalleryInfo()"
+        onmouseleave="hideGalleryInfo()"
+        >ℹ️</a
+      >
+    </div>
+    <div id="gallery-info" class="invisible"><!-- GALLERY_INFO --></div>
+    <main class="grid"><!-- GALLERY_CONTENTS --></main>
   </body>
 </html>

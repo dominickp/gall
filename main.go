@@ -7,13 +7,18 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
+	"time"
 
 	flags "github.com/jessevdk/go-flags"
+	minify "github.com/tdewolff/minify/v2"
+	"github.com/tdewolff/minify/v2/css"
+	"github.com/tdewolff/minify/v2/html"
+	"github.com/tdewolff/minify/v2/js"
 )
 
 type Options struct {
-	Randomize            bool `short:"r" long:"randomize" description:"Randomize image ordering in the gallery"`
 	LaunchDefaultBrowser bool `short:"b" long:"browser" description:"Launch the default browser after creating the gallery"`
 	LaunchFirefox        bool `short:"f" long:"firefox" description:"Launch Firefox after creating the gallery"`
 }
@@ -29,6 +34,7 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEn
 	defer file.Close()
 
 	galleryTitle := filepath.Base(directoryAbsolutePath)
+	galleryInfo := fmt.Sprintf("Created on %s - %d images", time.Now().Format("January 2, 2006 at 3:04 PM"), len(images))
 
 	galleryContents := ""
 	for _, image := range images {
@@ -41,6 +47,17 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEn
 	// Replace placeholders in the template
 	template = strings.Replace(template, "<!-- GALLERY_CONTENTS -->", galleryContents, 1)
 	template = strings.Replace(template, "<!-- GALLERY_TITLE -->", galleryTitle, 1)
+	template = strings.Replace(template, "<!-- GALLERY_INFO -->", galleryInfo, 1)
+
+	// Minify the HTML
+	m := minify.New()
+	m.AddFunc("text/html", html.Minify)
+	m.AddFunc("text/css", css.Minify)
+	m.AddFuncRegexp(regexp.MustCompile("^(application|text)/(x-)?(java|ecma)script$"), js.Minify)
+	template, err = m.String("text/html", template)
+	if err != nil {
+		panic(err)
+	}
 
 	file.WriteString(template)
 
@@ -61,10 +78,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
-	// log.Printf("Randomize: %v\n", opts.Randomize)
-	// log.Printf("LaunchDefaultBrowser: %t\n", opts.LaunchDefaultBrowser)
-	// log.Printf("LaunchFirefox: %t\n", opts.LaunchFirefox)
 
 	// Get the target directory
 	args := os.Args[1:]
