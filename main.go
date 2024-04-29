@@ -62,9 +62,9 @@ func main() {
 		return
 	}
 
-	log.Printf("Randomize: %v\n", opts.Randomize)
-	log.Printf("LaunchDefaultBrowser: %t\n", opts.LaunchDefaultBrowser)
-	log.Printf("LaunchFirefox: %t\n", opts.LaunchFirefox)
+	// log.Printf("Randomize: %v\n", opts.Randomize)
+	// log.Printf("LaunchDefaultBrowser: %t\n", opts.LaunchDefaultBrowser)
+	// log.Printf("LaunchFirefox: %t\n", opts.LaunchFirefox)
 
 	// Get the target directory
 	args := os.Args[1:]

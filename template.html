@@ -40,6 +40,12 @@
         z-index: 1000;
         margin: 20px;
       }
+      .visible-on-selecting {
+        display: inline;
+      }
+      a.button {
+        cursor: pointer;
+      }
     </style>
     <script>
 
@@ -49,7 +55,7 @@
         // Add the is-selecting class to the main element
         main.classList.add("is-selecting");
 
-        var filterOptions = document.querySelector("#filter-options");
+        var filterOptions = document.querySelector("#filter-options .visible-on-selecting");
         filterOptions.classList.remove("invisible");
       }
 
@@ -70,7 +76,7 @@
           figure.classList.remove("hidden");
         }
 
-        var filterOptions = document.querySelector("#filter-options");
+        var filterOptions = document.querySelector("#filter-options .visible-on-selecting");
         filterOptions.classList.add("invisible");
       }
 
@@ -83,6 +89,23 @@
           if (!image.parentElement.classList.contains("toggling")) {
             image.parentElement.classList.add("hidden");
           }
+        }
+      }
+
+      function randomizeImageOrder() {
+        // Get the main element
+        var main = document.querySelector("main");
+        // Get all the figures
+        var figures = document.querySelectorAll("main figure");
+        // Create an array to store the figures
+        var figuresArray = Array.from(figures);
+        // Shuffle the array
+        figuresArray.sort(() => Math.random() - 0.5);
+        // Remove all the figures from the main element
+        main.innerHTML = "";
+        // Append the shuffled figures to the main element
+        for (const figure of figuresArray) {
+          main.appendChild(figure);
         }
       }
 
@@ -124,12 +147,15 @@
     </script>
   </head>
   <body>
-    
-    <main class="grid">
-      <div id="filter-options" class="hidden">
-        <button onclick="resetSelecting()">Reset</button>
-        <button onclick="filterSelection()">Filter</button>
+    <div id="filter-options">
+        <div class="visible-on-selecting invisible">
+          <a class="button" onclick="resetSelecting()">🔄</a>
+          <a class="button" onclick="filterSelection()">✅</a>
+        </div>
+        <a class="button" onclick="randomizeImageOrder()">🔀</a>
       </div>
+    <main class="grid">
+      
       <!-- GALLERY_CONTENTS -->
     </main>
   </body>

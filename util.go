@@ -81,5 +81,6 @@ func getImagesInDirectory(dir string) []fs.DirEntry {
 			images = append(images, file)
 		}
 	}
+	log.Printf("Found %d images in the directory", len(images))
 	return images
 }
