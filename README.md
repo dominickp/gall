@@ -12,7 +12,7 @@ This repo contains a CLI program that scans a directory for images and generates
 
 
 ## Usage
-[The Works of  Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/)
+Example with [The Works of Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/):
 ```
 PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
 2024/04/29 11:40:36 Directory to be scanned: .
@@ -21,6 +21,8 @@ PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
 2024/04/29 11:40:36 Gallery created: C:\Users\Dom\Pictures\ZdzislawBeksinski\gal.html
 ```
 
+<img src="./docs/example.jpg">
+
 ### Options
 
 ```sh
@@ -28,8 +30,6 @@ gall ./some-dir  	# Generate default gallery in directory
 gall ./some-dir -f 	# launch with firefox
 gall ./some-dir -b 	# launch default browser
 ```
-
-<img src="./docs/example.jpg">
 
 ## Enabling CSS Masonry in Firefox
 At the time of writing this, to use the Masonry layout in Firefox, navigate to _about:config_ and set `layout.css.grid-template-masonry-value.enabled` to true.
