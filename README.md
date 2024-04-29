@@ -26,7 +26,7 @@ PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
 2024/04/29 11:40:36 Gallery created: C:\Users\Dom\Pictures\ZdzislawBeksinski\gal.html
 ```
 
-<img src="./docs/example.png">
+<img src="./docs/example.jpg">
 
 ## Enabling CSS Masonry in Firefox
 At the time of writing this, to use the Masonry layout in Firefox, navigate to [about:config](about:config) and set `layout.css.grid-template-masonry-value.enabled` to true.
