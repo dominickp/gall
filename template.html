@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Gallery</title>
+    <title><!-- GALLERY_TITLE --></title>
     <style>
+      html {
+        background-color: black;
+      }
       main {
         display: grid;
-        /* grid-template-columns: repeat(
-            auto-fill,
-            minmax(18rem, 1fr) minmax(20rem, 2fr)
-          ) minmax(18rem, 1fr); */
         grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
         grid-template-rows: masonry;
         gap: 0.1rem;
@@ -22,13 +21,116 @@
         width: 100%;
         height: auto;
         display: block;
+        cursor: pointer;
+      }
+      main.is-selecting figure:not(.toggling) img{
+        opacity: 0.5;
+      }
+      .hidden {
+        display: none;
+      }
+      .invisible {
+        visibility: hidden;
+      }
+      #filter-options {
+        position: fixed;
+        display: inline-block;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        margin: 20px;
       }
     </style>
+    <script>
+
+      function bootstrapSelecting() {
+        // Get the main element
+        var main = document.querySelector("main");
+        // Add the is-selecting class to the main element
+        main.classList.add("is-selecting");
+
+        var filterOptions = document.querySelector("#filter-options");
+        filterOptions.classList.remove("invisible");
+      }
+
+      function resetSelecting() {
+        // Get the main element
+        var main = document.querySelector("main");
+        // Remove the is-selecting class from the main element
+        main.classList.remove("is-selecting");
+
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        for (const image of images) {
+          // Get the parent figure element
+          var figure = image.parentElement;
+          // Remove the toggling/hidden classes
+          figure.classList.remove("toggling");
+          figure.classList.remove("hidden");
+        }
+
+        var filterOptions = document.querySelector("#filter-options");
+        filterOptions.classList.add("invisible");
+      }
+
+      function filterSelection() {
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        for (const image of images) {
+          // If the image is not toggling, add the hidden class to it
+          if (!image.parentElement.classList.contains("toggling")) {
+            image.parentElement.classList.add("hidden");
+          }
+        }
+      }
+
+      function toggleImage(event) {
+
+        // Set the is-selecting class on the main element
+        bootstrapSelecting();
+        
+        // Get the clicked image
+        var image = event.target;
+
+        // Get the parent figure element
+        var figure = image.parentElement;
+
+        // Check if the figure element has the toggling class
+        if (figure.classList.contains("toggling")) {
+          // Remove the toggling class
+          figure.classList.remove("toggling");
+        } else {
+          // Add the toggling class
+          figure.classList.add("toggling");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        // Loop through each image
+        for (const image of images) {
+          // Add click event listener to each image
+          image.addEventListener("click", function (event) {
+            // Call the toggleImage function when an image is clicked
+            toggleImage(event);
+            console.log("click");
+          });
+        }
+      });
+    </script>
   </head>
   <body>
+    
     <main class="grid">
-        <!-- The comment below is replaced with the gallery contents. -->
-        <!-- GALLERY_CONTENTS -->
+      <div id="filter-options" class="hidden">
+        <button onclick="resetSelecting()">Reset</button>
+        <button onclick="filterSelection()">Filter</button>
+      </div>
+      <!-- GALLERY_CONTENTS -->
     </main>
   </body>
 </html>

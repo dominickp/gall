@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Gallery</title>
+    <title>example-gallery</title>
     <style>
+      html {
+        background-color: black;
+      }
       main {
         display: grid;
-        /* grid-template-columns: repeat(
-            auto-fill,
-            minmax(18rem, 1fr) minmax(20rem, 2fr)
-          ) minmax(18rem, 1fr); */
         grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
         grid-template-rows: masonry;
         gap: 0.1rem;
@@ -22,237 +21,250 @@
         width: 100%;
         height: auto;
         display: block;
+        cursor: pointer;
+      }
+      main.is-selecting figure:not(.toggling) img{
+        opacity: 0.5;
+      }
+      .hidden {
+        display: none;
+      }
+      .invisible {
+        visibility: hidden;
+      }
+      #filter-options {
+        position: fixed;
+        display: inline-block;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        margin: 20px;
       }
     </style>
+    <script>
+
+      function bootstrapSelecting() {
+        // Get the main element
+        var main = document.querySelector("main");
+        // Add the is-selecting class to the main element
+        main.classList.add("is-selecting");
+
+        var filterOptions = document.querySelector("#filter-options");
+        filterOptions.classList.remove("invisible");
+      }
+
+      function resetSelecting() {
+        // Get the main element
+        var main = document.querySelector("main");
+        // Remove the is-selecting class from the main element
+        main.classList.remove("is-selecting");
+
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        for (const image of images) {
+          // Get the parent figure element
+          var figure = image.parentElement;
+          // Remove the toggling/hidden classes
+          figure.classList.remove("toggling");
+          figure.classList.remove("hidden");
+        }
+
+        var filterOptions = document.querySelector("#filter-options");
+        filterOptions.classList.add("invisible");
+      }
+
+      function filterSelection() {
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        for (const image of images) {
+          // If the image is not toggling, add the hidden class to it
+          if (!image.parentElement.classList.contains("toggling")) {
+            image.parentElement.classList.add("hidden");
+          }
+        }
+      }
+
+      function toggleImage(event) {
+
+        // Set the is-selecting class on the main element
+        bootstrapSelecting();
+        
+        // Get the clicked image
+        var image = event.target;
+
+        // Get the parent figure element
+        var figure = image.parentElement;
+
+        // Check if the figure element has the toggling class
+        if (figure.classList.contains("toggling")) {
+          // Remove the toggling class
+          figure.classList.remove("toggling");
+        } else {
+          // Add the toggling class
+          figure.classList.add("toggling");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        // Select all images
+        var images = document.querySelectorAll("main figure img");
+
+        // Loop through each image
+        for (const image of images) {
+          // Add click event listener to each image
+          image.addEventListener("click", function (event) {
+            // Call the toggleImage function when an image is clicked
+            toggleImage(event);
+            console.log("click");
+          });
+        }
+      });
+    </script>
   </head>
   <body>
+    
     <main class="grid">
-        <!-- The comment below is replaced with the gallery contents. -->
-        
+      <div id="filter-options" class="hidden">
+        <button onclick="resetSelecting()">Reset</button>
+        <button onclick="filterSelection()">Filter</button>
+      </div>
+      
 		<figure class='card'>
-			<a href='image-1 (2).jpg' target='_blank'>
-				<img src='image-1 (2).jpg' />
-			</a>
+			<img src='image-1 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-1.jpg' target='_blank'>
-				<img src='image-1.jpg' />
-			</a>
+			<img src='image-1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-10 (2).jpg' target='_blank'>
-				<img src='image-10 (2).jpg' />
-			</a>
+			<img src='image-10 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-10.jpg' target='_blank'>
-				<img src='image-10.jpg' />
-			</a>
+			<img src='image-10.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-10_1.jpg' target='_blank'>
-				<img src='image-10_1.jpg' />
-			</a>
+			<img src='image-10_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-10_2.jpg' target='_blank'>
-				<img src='image-10_2.jpg' />
-			</a>
+			<img src='image-10_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-1_1.jpg' target='_blank'>
-				<img src='image-1_1.jpg' />
-			</a>
+			<img src='image-1_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-1_2.jpg' target='_blank'>
-				<img src='image-1_2.jpg' />
-			</a>
+			<img src='image-1_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-1_3.jpg' target='_blank'>
-				<img src='image-1_3.jpg' />
-			</a>
+			<img src='image-1_3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-2 (2).jpg' target='_blank'>
-				<img src='image-2 (2).jpg' />
-			</a>
+			<img src='image-2 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-2.jpg' target='_blank'>
-				<img src='image-2.jpg' />
-			</a>
+			<img src='image-2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-2_1.jpg' target='_blank'>
-				<img src='image-2_1.jpg' />
-			</a>
+			<img src='image-2_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-2_2.jpg' target='_blank'>
-				<img src='image-2_2.jpg' />
-			</a>
+			<img src='image-2_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-2_3.jpg' target='_blank'>
-				<img src='image-2_3.jpg' />
-			</a>
+			<img src='image-2_3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-3 (2).jpg' target='_blank'>
-				<img src='image-3 (2).jpg' />
-			</a>
+			<img src='image-3 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-3.jpg' target='_blank'>
-				<img src='image-3.jpg' />
-			</a>
+			<img src='image-3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-3_1.jpg' target='_blank'>
-				<img src='image-3_1.jpg' />
-			</a>
+			<img src='image-3_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-3_2.jpg' target='_blank'>
-				<img src='image-3_2.jpg' />
-			</a>
+			<img src='image-3_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-3_3.jpg' target='_blank'>
-				<img src='image-3_3.jpg' />
-			</a>
+			<img src='image-3_3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-4 (2).jpg' target='_blank'>
-				<img src='image-4 (2).jpg' />
-			</a>
+			<img src='image-4 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-4.jpg' target='_blank'>
-				<img src='image-4.jpg' />
-			</a>
+			<img src='image-4.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-4_1.jpg' target='_blank'>
-				<img src='image-4_1.jpg' />
-			</a>
+			<img src='image-4_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-4_2.jpg' target='_blank'>
-				<img src='image-4_2.jpg' />
-			</a>
+			<img src='image-4_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-4_3.jpg' target='_blank'>
-				<img src='image-4_3.jpg' />
-			</a>
+			<img src='image-4_3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-5 (2).jpg' target='_blank'>
-				<img src='image-5 (2).jpg' />
-			</a>
+			<img src='image-5 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-5.jpg' target='_blank'>
-				<img src='image-5.jpg' />
-			</a>
+			<img src='image-5.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-5_1.jpg' target='_blank'>
-				<img src='image-5_1.jpg' />
-			</a>
+			<img src='image-5_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-5_2.jpg' target='_blank'>
-				<img src='image-5_2.jpg' />
-			</a>
+			<img src='image-5_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-5_3.jpg' target='_blank'>
-				<img src='image-5_3.jpg' />
-			</a>
+			<img src='image-5_3.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-6 (2).jpg' target='_blank'>
-				<img src='image-6 (2).jpg' />
-			</a>
+			<img src='image-6 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-6.jpg' target='_blank'>
-				<img src='image-6.jpg' />
-			</a>
+			<img src='image-6.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-6_1.jpg' target='_blank'>
-				<img src='image-6_1.jpg' />
-			</a>
+			<img src='image-6_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-6_2.jpg' target='_blank'>
-				<img src='image-6_2.jpg' />
-			</a>
+			<img src='image-6_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-7 (2).jpg' target='_blank'>
-				<img src='image-7 (2).jpg' />
-			</a>
+			<img src='image-7 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-7.jpg' target='_blank'>
-				<img src='image-7.jpg' />
-			</a>
+			<img src='image-7.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-7_1.jpg' target='_blank'>
-				<img src='image-7_1.jpg' />
-			</a>
+			<img src='image-7_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-7_2.jpg' target='_blank'>
-				<img src='image-7_2.jpg' />
-			</a>
+			<img src='image-7_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-8 (2).jpg' target='_blank'>
-				<img src='image-8 (2).jpg' />
-			</a>
+			<img src='image-8 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-8.jpg' target='_blank'>
-				<img src='image-8.jpg' />
-			</a>
+			<img src='image-8.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-8_1.jpg' target='_blank'>
-				<img src='image-8_1.jpg' />
-			</a>
+			<img src='image-8_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-8_2.jpg' target='_blank'>
-				<img src='image-8_2.jpg' />
-			</a>
+			<img src='image-8_2.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-9 (2).jpg' target='_blank'>
-				<img src='image-9 (2).jpg' />
-			</a>
+			<img src='image-9 (2).jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-9.jpg' target='_blank'>
-				<img src='image-9.jpg' />
-			</a>
+			<img src='image-9.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-9_1.jpg' target='_blank'>
-				<img src='image-9_1.jpg' />
-			</a>
+			<img src='image-9_1.jpg' />
 		</figure>
 		<figure class='card'>
-			<a href='image-9_2.jpg' target='_blank'>
-				<img src='image-9_2.jpg' />
-			</a>
+			<img src='image-9_2.jpg' />
 		</figure>
     </main>
   </body>

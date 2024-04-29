@@ -8,7 +8,15 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	flags "github.com/jessevdk/go-flags"
 )
+
+type Options struct {
+	Randomize            bool `short:"r" long:"randomize" description:"Randomize image ordering in the gallery"`
+	LaunchDefaultBrowser bool `short:"b" long:"browser" description:"Launch the default browser after creating the gallery"`
+	LaunchFirefox        bool `short:"f" long:"firefox" description:"Launch Firefox after creating the gallery"`
+}
 
 func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEntry) string {
 	// Create a new file in the directory
@@ -20,18 +28,19 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.DirEn
 	}
 	defer file.Close()
 
+	galleryTitle := filepath.Base(directoryAbsolutePath)
+
 	galleryContents := ""
 	for _, image := range images {
 		galleryContents += fmt.Sprintf(`
 		<figure class='card'>
-			<a href='%s' target='_blank'>
-				<img src='%s' />
-			</a>
-		</figure>`, image.Name(), image.Name())
+			<img src='%s' />
+		</figure>`, image.Name())
 	}
 
-	// Find the placeholder "<!-- GALLERY_CONTENTS -->" and replace it in the template
+	// Replace placeholders in the template
 	template = strings.Replace(template, "<!-- GALLERY_CONTENTS -->", galleryContents, 1)
+	template = strings.Replace(template, "<!-- GALLERY_TITLE -->", galleryTitle, 1)
 
 	file.WriteString(template)
 
@@ -45,7 +54,25 @@ var template string
 
 func main() {
 
-	dir := os.Args[1:][0]
+	var opts Options
+	_, err := flags.Parse(&opts)
+	if err != nil {
+		// Handle error
+		fmt.Println(err)
+		return
+	}
+
+	log.Printf("Randomize: %v\n", opts.Randomize)
+	log.Printf("LaunchDefaultBrowser: %t\n", opts.LaunchDefaultBrowser)
+	log.Printf("LaunchFirefox: %t\n", opts.LaunchFirefox)
+
+	// Get the target directory
+	args := os.Args[1:]
+	if len(args) == 0 {
+		log.Fatalf("Usage: %s <directory>", os.Args[0])
+		return
+	}
+	dir := args[0]
 	log.Printf("Directory to be scanned: %s", dir)
 
 	// Check if the directory exists
@@ -65,30 +92,26 @@ func main() {
 		return
 	}
 
-	// List all files of a valid image filetype in the directory
-	files, err := os.ReadDir(dir)
-	if err != nil {
-		log.Fatalf("Error reading directory: %s", err)
-		return
-	}
-	images := []fs.DirEntry{}
-
-	// Print all files in the directory
-	for _, file := range files {
-		if fileIsImage(file) {
-			images = append(images, file)
-		}
-	}
-
-	log.Printf("Found %d images", len(images))
+	// Gather images in the target directory
+	images := getImagesInDirectory(dir)
 
 	// Create a new HTML file
 	galleryFileName := createHTMLGallery(template, dir, images)
 
-	// FIXME: open browser conditionally
-	err = openBrowser(fmt.Sprintf("file://%s", galleryFileName))
-	if err != nil {
-		panic(err)
+	// Open the gallery in the browser
+	if opts.LaunchDefaultBrowser || opts.LaunchFirefox {
+		var browser string
+		if opts.LaunchFirefox {
+			browser = "firefox"
+		}
+		if opts.LaunchDefaultBrowser {
+			browser = "default"
+		}
+
+		err = openBrowser(fmt.Sprintf("file://%s", galleryFileName), browser)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 }

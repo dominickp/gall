@@ -14,3 +14,10 @@ Set `layout.css.grid-template-masonry-value.enabled` to true in `about:config`
 
 ## Notes
 Example images generates with https://unsample.net/
+
+
+## Template replacements
+|Placeholder|Content|
+|---|---|
+|`<!-- GALLERY_CONTENTS -->`|Gallery images|
+|`<!-- GALLERY_TITLE -->`|Gallery title|

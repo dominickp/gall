@@ -11,7 +11,7 @@
             "mode": "auto",
             "program": "${workspaceFolder}",
             "output": "./bin/go-masonry-gallery",
-            "args": ["./example-gallery"]
+            "args": ["./example-gallery", "--firefox"]
         }
     ]
 }
