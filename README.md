@@ -8,8 +8,7 @@ This repo contains a CLI program that scans a directory for images and generates
 - Select and filter a subset of the images
 
 ### Example output
-[View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html).
-
+[View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html). Note the small icons on the top-right. Try clicking on a few images too.
 
 ## Usage
 Example with [The Works of Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/):
@@ -35,8 +34,7 @@ gall ./some-dir -b 	# launch default browser
 At the time of writing this, to use the Masonry layout in Firefox, navigate to _about:config_ and set `layout.css.grid-template-masonry-value.enabled` to true.
 
 ## Notes
-Example images generates with https://unsample.net/
-
+Example gallery images generated with https://unsample.net/
 
 ## Template Placeholders
 The file [template.html](./template.html) contains the unminified HTML template of the gallery page with a bit of CSS and JavaScript. This app simply loads that file and replaces the below placeholders with some text and HTML.
