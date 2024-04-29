@@ -11,6 +11,8 @@ This repo contains a CLI program that scans a directory for images and generates
 [View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html). Note the small icons on the top-right. Try clicking on a few images, then clicking the filter button.
 
 ## Usage
+Either grab a binary from a [release](https://github.com/dominickp/gall/releases) and add it to your PATH or clone this repo and run `go install`.
+
 Example with [The Works of Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/):
 ```
 PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
