@@ -3,9 +3,12 @@
 This repo contains a CLI program that scans a directory for images and generates a simple HTML gallery using the experimental CSS [Masonry layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout). The gallery file generated is left in the directory, so in the future, you can just open it in a browser.
 
 ### Features
-- Generate an HTML gallery with a masonry layout
+- Generate a minified HTML gallery with a masonry layout
 - Randomize the order of the images
 - Select and filter a subset of the images
+
+### Example output
+[View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html).
 
  
 ## UI
@@ -16,7 +19,7 @@ gall ./some-dir -f 	# launch with firefox
 gall ./some-dir -b 	# launch default browser
 ```
 
-## Example
+## Usage
 [The Works of  Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/)
 ```
 PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
