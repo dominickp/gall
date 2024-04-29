@@ -1,6 +1,6 @@
 # go-masonry-gallery
 
-This repo contains a CLI program that scans a directory for images and generates a simple HTML gallery using the experimental CSS [Masonry layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout). The gallery file generated is left in the directory, so in the future, you can just open it in a browser.
+This repo contains a CLI program that scans a local directory for images and generates a simple HTML gallery using the experimental CSS [Masonry layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout). The gallery file generated is left in the directory, so in the future, you can just open it in a browser.
 
 The CSS Masonry option does a great job of using up all of the available space in the window. It also works well with browser scaling/zooming. I like the experience of browsing images this way much more than the default Windows file explorer with the "Extra large icons" view mode.
 
