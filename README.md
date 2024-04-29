@@ -38,7 +38,9 @@ At the time of writing this, to use the Masonry layout in Firefox, navigate to _
 Example images generates with https://unsample.net/
 
 
-## Template replacements
+## Template Placeholders
+The file [template.html](./template.html) contains the unminified HTML template of the gallery page with a bit of CSS and JavaScript. This app simply loads that file and replaces the below placeholders with some text and HTML.
+
 |Placeholder|Content|
 |---|---|
 |`<!-- GALLERY_CONTENTS -->`|Gallery images|
