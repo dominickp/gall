@@ -8,7 +8,7 @@ This repo contains a CLI program that scans a directory for images and generates
 - Select and filter a subset of the images
 
 ### Example output
-[View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html). Note the small icons on the top-right. Try clicking on a few images too.
+[View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html). Note the small icons on the top-right. Try clicking on a few images, then clicking the filter button.
 
 ## Usage
 Example with [The Works of Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/):
