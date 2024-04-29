@@ -70,31 +70,32 @@ func TestGetImagesInDirectory(t *testing.T) {
 		},
 	}
 	for ti, tt := range tests {
-		// Create a new directory
-		dir := fmt.Sprintf("/testDir-%d", ti)
-		err := fs.MkdirAll(dir, 0755)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		// Create new files
-		for _, file := range tt.fileNames {
-			afero.WriteFile(fs, dir+"/"+file, []byte{}, 0644)
-		}
-
-		// Call getImagesInDirectory
-		images := getImagesInDirectory(fs, dir)
-
-		if len(images) != len(tt.want) {
-			t.Errorf("Expected %d images, got %d", len(tt.want), len(images))
-		}
-
-		for index, file := range images {
-			// Assuming `expected` is the expected file path and `file` is the fs.FileInfo object
-			if filepath.Base(tt.want[index]) != file.Name() {
-				t.Errorf("Expected %v, got %v", filepath.Base(tt.want[index]), file.Name())
+		t.Run(tt.name, func(t *testing.T) {
+			// Create a new directory
+			dir := fmt.Sprintf("/testDir-%d", ti)
+			err := fs.MkdirAll(dir, 0755)
+			if err != nil {
+				t.Fatal(err)
 			}
-		}
-	}
 
+			// Create new files
+			for _, file := range tt.fileNames {
+				afero.WriteFile(fs, dir+"/"+file, []byte{}, 0644)
+			}
+
+			// Call getImagesInDirectory
+			images := getImagesInDirectory(fs, dir)
+
+			if len(images) != len(tt.want) {
+				t.Errorf("Expected %d images, got %d", len(tt.want), len(images))
+			}
+
+			for index, file := range images {
+				// Assuming `expected` is the expected file path and `file` is the fs.FileInfo object
+				if filepath.Base(tt.want[index]) != file.Name() {
+					t.Errorf("Expected %v, got %v", filepath.Base(tt.want[index]), file.Name())
+				}
+			}
+		})
+	}
 }
