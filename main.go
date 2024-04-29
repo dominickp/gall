@@ -11,6 +11,8 @@ import (
 	"strings"
 	"time"
 
+	h "html"
+
 	flags "github.com/jessevdk/go-flags"
 	"github.com/spf13/afero"
 	minify "github.com/tdewolff/minify/v2"
@@ -47,7 +49,7 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.FileI
 		galleryContents += fmt.Sprintf(`
 		<figure class='card'>
 			<img src='%s' />
-		</figure>`, image.Name())
+		</figure>`, h.EscapeString(image.Name()))
 	}
 
 	// Replace placeholders in the template
