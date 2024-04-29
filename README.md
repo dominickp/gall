@@ -10,14 +10,6 @@ This repo contains a CLI program that scans a directory for images and generates
 ### Example output
 [View the example-gallery in GitHub Pages](https://dominickp.github.io/gall/example-gallery/gal.html).
 
- 
-## UI
-
-```sh
-gall ./some-dir  	# Generate default gallery in directory
-gall ./some-dir -f 	# launch with firefox
-gall ./some-dir -b 	# launch default browser
-```
 
 ## Usage
 [The Works of  Zdzisław Beksiński](https://archive.org/details/ZdzislawBeksinski/)
@@ -27,6 +19,14 @@ PS C:\Users\Dom\Pictures\ZdzislawBeksinski> gall .
 2024/04/29 11:40:36 Found 88 images in the directory
 2024/04/29 11:40:36 1 non-images were excluded from the gallery
 2024/04/29 11:40:36 Gallery created: C:\Users\Dom\Pictures\ZdzislawBeksinski\gal.html
+```
+
+### Options
+
+```sh
+gall ./some-dir  	# Generate default gallery in directory
+gall ./some-dir -f 	# launch with firefox
+gall ./some-dir -b 	# launch default browser
 ```
 
 <img src="./docs/example.jpg">
