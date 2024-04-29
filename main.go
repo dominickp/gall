@@ -46,6 +46,13 @@ func createHTMLGallery(template, directoryAbsolutePath string, images []fs.FileI
 	galleryInfo := fmt.Sprintf("Created on %s - %d images", time.Now().Format("January 2, 2006 at 3:04 PM"), len(images))
 	galleryContents := ""
 	for _, image := range images {
+		if fileIsVideo(image) {
+			galleryContents += fmt.Sprintf(`
+			<figure class='card'>
+				<video src='%s' autoplay loop muted/>
+			</figure>`, h.EscapeString(image.Name()))
+			continue
+		}
 		galleryContents += fmt.Sprintf(`
 		<figure class='card'>
 			<img src='%s' />

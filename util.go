@@ -47,6 +47,22 @@ func openBrowser(url string, browser string) error {
 	return exec.Command(cmd, args...).Start()
 }
 
+func fileIsVideo(file fs.FileInfo) bool {
+	videoFileTypes := []string{
+		".mp4",
+		".webm",
+		".ogg",
+		".mov",
+		".mpg",
+	}
+	for _, fileType := range videoFileTypes {
+		if strings.HasSuffix(file.Name(), fileType) {
+			return true
+		}
+	}
+	return false
+}
+
 // fileIsImage checks if a file is a browser-compatible image based on its extension
 func fileIsImage(file fs.FileInfo) bool {
 	// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
@@ -79,7 +95,7 @@ func getImagesInDirectory(afs afero.Fs, dir string) []fs.FileInfo {
 	}
 	images := []fs.FileInfo{}
 	for _, file := range files {
-		if fileIsImage(file) {
+		if fileIsImage(file) || fileIsVideo(file) {
 			images = append(images, file)
 		}
 	}
