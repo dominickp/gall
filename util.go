@@ -46,8 +46,9 @@ func openBrowser(url string, browser string) error {
 	return exec.Command(cmd, args...).Start()
 }
 
+// fileIsImage checks if a file is a browser-compatible image based on its extension
 func fileIsImage(file fs.DirEntry) bool {
-	// Check if the file is an image
+	// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
 	imageFileTypes := []string{
 		".apng",                                    // APNG
 		".avif",                                    // AVIF
@@ -68,6 +69,7 @@ func fileIsImage(file fs.DirEntry) bool {
 	return false
 }
 
+// getImagesInDirectory reads the files in a directory and returns a list of images
 func getImagesInDirectory(dir string) []fs.DirEntry {
 	files, err := os.ReadDir(dir)
 	if err != nil {
