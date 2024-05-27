@@ -73,37 +73,41 @@
         filterOptions.classList.remove("invisible");
       }
 
+      /**
+       * Reset gallery to its original state (unsets any selected items)
+       */
       function resetSelecting() {
-        var main = document.querySelector("main");
+        const main = document.querySelector("main");
         // Remove the is-selecting class from the main element
         main.classList.remove("is-selecting");
-
         // Select all images
-        var images = document.querySelectorAll("main figure img");
+        const images = document.querySelectorAll("main figure.card");
         for (const image of images) {
-          var figure = image.parentElement;
           // Remove the toggling/hidden classes
-          figure.classList.remove("toggling");
-          figure.classList.remove("hidden");
+          image.classList.remove("toggling");
+          image.classList.remove("hidden");
         }
-
-        var filterOptions = document.querySelector(
-          "#filter-options .visible-on-selecting"
-        );
+        const filterOptions = document.querySelector("#filter-options .visible-on-selecting");
         filterOptions.classList.add("invisible");
       }
 
+      /**
+       * Filter the gallery based on the selected items (hides any unselected items)
+       */
       function filterSelection() {
         // Select all images
-        var images = document.querySelectorAll("main figure img");
+        var images = document.querySelectorAll("main figure.card");
         for (const image of images) {
           // If the image is not toggling, add the hidden class to it
-          if (!image.parentElement.classList.contains("toggling")) {
-            image.parentElement.classList.add("hidden");
+          if (!image.classList.contains("toggling")) {
+            image.classList.add("hidden");
           }
         }
       }
 
+      /**
+       * Randomize the order of the images in the gallery
+       */
       function randomizeImageOrder() {
         var main = document.querySelector("main");
         var figures = document.querySelectorAll("main figure");
@@ -146,7 +150,7 @@
 
       document.addEventListener("DOMContentLoaded", (event) => {
         // Select all images
-        var images = document.querySelectorAll("main figure img");
+        var images = document.querySelectorAll("main figure.card");
         // Loop through each image
         for (const image of images) {
           // Add click event listener to each image
@@ -157,6 +161,7 @@
           });
         }
       });
+
     </script>
   </head>
   <body>
